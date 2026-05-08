@@ -1,0 +1,9 @@
+nome: Mateus
+idade: 18
+curso: Desenvolvimento de Sistemas
+linguagens:
+  - Python
+  - JavaScript
+  - HTML
+
+ativo: true
