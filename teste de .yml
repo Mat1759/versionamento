@@ -1,9 +1,14 @@
-nome: Mateus
-idade: 18
-curso: Desenvolvimento de Sistemas
+usuario:
+  nome: Mateus
+  idade: 18
+  cidade: São Paulo
+
 linguagens:
   - Python
   - JavaScript
-  - HTML
+  - Java
 
-ativo: true
+configuracoes:
+  tema: escuro
+  notificacoes: true
+  volume: 80
