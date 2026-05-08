@@ -1,0 +1,112 @@
+import tkinter as tk
+from tkinter import messagebox
+
+
+class EcommerceSystem:
+    def __init__(self):
+        self.users = []
+        self.products = []
+        self.orders = []
+    
+    def add_user(self, user):
+        self.users.append(user)
+
+    def add_product(self, product):
+        self.products.append(product)
+
+    def place_order(self, user, product):
+        if user not in self.users:
+            return "Usuário não cadastrado, seu animal"
+
+        if product in self.products:
+            self.orders.append((user, product))
+            return "Pedido feito com sucesso"
+
+        return "Produto indisponível"
+
+
+# Sistema ó
+system = EcommerceSystem()
+
+# Cadastro
+system.add_product("Notebook")
+system.add_product("Mouse")
+system.add_product("Teclado")
+
+
+# Mat interface
+def cadastrar_usuario():
+    nome = entry_usuario.get()
+
+    if nome:
+        system.add_user(nome)
+        messagebox.showinfo("Sucesso", f"Usuário {nome} cadastrado!")
+        entry_usuario.delete(0, tk.END)
+    else:
+        messagebox.showwarning("Erro", "Digite um nome")
+
+
+def fazer_pedido():
+    usuario = entry_pedido_usuario.get()
+    produto = entry_produto.get()
+
+    resultado = system.place_order(usuario, produto)
+
+    messagebox.showinfo("Pedido", resultado)
+
+    atualizar_pedidos()
+
+
+def atualizar_pedidos():
+    lista_pedidos.delete(0, tk.END)
+
+    for pedido in system.orders:
+        lista_pedidos.insert(tk.END, f"{pedido[0]} comprou {pedido[1]}")
+
+
+# Mat janela
+janela = tk.Tk()
+janela.title("Mini E-commerce")
+janela.geometry("500x400")
+
+
+# Cadastro de usuário boco
+tk.Label(janela, text="Cadastrar Usuário").pack(pady=5)
+
+entry_usuario = tk.Entry(janela, width=30)
+entry_usuario.pack()
+
+tk.Button(
+    janela,
+    text="Cadastrar",
+    command=cadastrar_usuario
+).pack(pady=5)
+
+
+# Conseguiu peste
+tk.Label(janela, text="Fazer pedido").pack(pady=10)
+
+entry_pedido_usuario = tk.Entry(janela, width=30)
+entry_pedido_usuario.pack()
+entry_pedido_usuario.insert(0, "Nome do usuário")
+
+entry_produto = tk.Entry(janela, width=30)
+entry_produto.pack()
+entry_produto.insert(0, "Produto")
+
+tk.Button(
+    janela,
+    text="Comprar",
+    command=fazer_pedido
+).pack(pady=10)
+
+
+# Mat lista
+tk.Label(janela, text="Pedidos").pack()
+
+lista_pedidos = tk.Listbox(janela, width=50, height=10)
+lista_pedidos.pack(pady=10)
+
+
+# Executar UI
+janela.mainloop()
