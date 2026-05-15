@@ -6,7 +6,7 @@ from functools import wraps
 app = Flask(__name__)
 
 # Chave secreta para assinar os tokens JWT
-app.confug['SECRET_KEY'] = 'minha_chave_secreta'
+app.config['SECRET_KEY'] = 'minha_chave_secreta'
 
 # Função para verificar o token JWT
 def token_requerido(f):
@@ -14,7 +14,7 @@ def token_requerido(f):
     def decorator(*args, **kwargs):
         token = request.headers.get('x-access-token')
         if not token:
-            return jsonify({'mensagem: Token de acesso é necessário Boca aberta!'}), 401
+            return jsonify({'mensagem': 'Token de acesso é necessário Boca aberta!'}), 401
         try:
             dados = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
             request.user_data = dados
